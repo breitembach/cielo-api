@@ -1,9 +1,13 @@
 {
   "name": "cielo-api",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Api cielo 3.0 nodejs com tipagem",
   "main": "./dist/Cielo.js",
   "types": "./dist/Cielo.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/breitembach/cielo-api"
+  },
   "scripts": {
     "build": "tsc --build",
     "dev2": "nodemon src/index.ts",
@@ -12,10 +16,11 @@
     "testCoverage": "jest --coverage"
   },
   "keywords": [
-    "api",
+    "api cielo",
+    "api pagamentos cielo",
+    "nodejs cielo",
     "nodejs",
-    "cielo",
-    "sdk"
+    "sdk cielo"
   ],
   "author": "Lucas Breitembach",
   "license": "MIT",

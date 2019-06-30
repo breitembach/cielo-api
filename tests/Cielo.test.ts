@@ -1,8 +1,9 @@
+import credentials from '../credentials';
 import { CieloApi } from '../src/Cielo';
 
 new CieloApi.Cielo({
-  merchantId: '',//@TODO
-  merchantKey: '',//@TODO
+  merchantId: credentials.merchantId, //@TODO
+  merchantKey: credentials.merchantKey,//@TODO
   isSandBox: true
 })
 
