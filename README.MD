@@ -1,6 +1,6 @@
 ## cielo
 
-API 3.0 da Cielo em NodeJs Com Tipagem Typescript
+API 3.0 da Cielo em NodeJs com suporte Typescript
 
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
@@ -99,35 +99,27 @@ CieloApi.getInstance.<method>
 
 ## <a name="creditCard"></a> Cartão de Crédito
 
-### <a name="creditSimpleTransaction"></a>  Criando uma transação simples
+### <a name="creditSimpleTransaction"></a>  Criando uma transação com cartão Tokerizado
 
-Usando Promise
 
 ```js
-var dadosSale = {  
-   "MerchantOrderId":"2014111703",
-   "Customer":{  
-      "Name":"Comprador crédito simples"
-   },
-   "Payment":{  
-     "Type":"CreditCard",
-     "Amount":15700,
-     "Installments":1,
-     "SoftDescriptor":"123456789ABCD",
-     "CreditCard":{  
-         "CardNumber":"0000000000000001",
-         "Holder":"Teste Holder",
-         "ExpirationDate":"12/2030",
-         "SecurityCode":"123",
-         "Brand":"Visa"
-     }
-   }
-}
-
-
 
 try {
-  const res = await cielo.getInstance.simpleTransaction(dadosSale);
+  const res = await CieloApi.getInstance.createSaleCardTokerized({
+    Customer: {
+      Name: "Nome do Cliente"
+    },
+    MerchantOrderId: "123124124123",
+    Payment: {
+      Amount: 100,
+      CreditCard: {
+        Brand: "Master",
+        CardToken: "123023-32322-44224-22223-444-444"
+      },
+      Installments: 1,
+      Type: 'CreditCard'
+    }
+  })
 
 }catch (e) {
   console.log(e.message)
@@ -188,8 +180,6 @@ Para rodar os testes automatizados, apenas execute o seguinte comando
 ```
 npm test
 ```
-
-Também é possível verificar o histórico de builds através do [Travis CI](https://travis-ci.org/banzeh/cielo/builds)
 
 ## <a name="autor"></a> Autor
 

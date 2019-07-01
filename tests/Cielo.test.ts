@@ -54,7 +54,7 @@ describe('Card Tokerized', () => {
   test('Should Be Return created SALES With CardTokerized > POST', async () => {
     try {
       expect.assertions(1)
-      const res = await CieloApi.getInstance.postSales({
+      const res = await CieloApi.getInstance.createSaleCardTokerized({
         Customer: {
           Name: "lucas"
         },

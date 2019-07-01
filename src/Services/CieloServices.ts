@@ -86,7 +86,7 @@ export default abstract class CieloServices {
    * @returns SaleResponse
    * @description POST /1/sales
    */
-  public async postSales (data: SaleRequest): Promise<SaleResponse> {
+  public async createSaleCardTokerized (data: SaleRequest): Promise<SaleResponse> {
     try {
       const res = await axios.post(`${this.params.urlRequisicao}/1/sales`, data)
       return res.data
