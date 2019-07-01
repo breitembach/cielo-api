@@ -31,6 +31,3 @@ var CieloApi;
     }
     CieloApi.Cielo = Cielo;
 })(CieloApi = exports.CieloApi || (exports.CieloApi = {}));
-//asdadasdasdsd
-// let a: Cielo
-// console.log(new Cielo({merchantId: "dasdasdsd", merchantKey: "dasdsaad"}))

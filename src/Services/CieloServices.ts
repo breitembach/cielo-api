@@ -68,6 +68,10 @@ export default abstract class CieloServices {
       if (!card) {
         throw new Error('credit card is required')
       }
+      if(card.CardNumber.length !== 16) {
+        throw new Error('Número do cartão de credito deve ter 16 digitos')
+      }
+      
       const res = await axios.post(`${this.params.urlRequisicao}/1/card`, card)
       
       return res.data
@@ -78,7 +82,22 @@ export default abstract class CieloServices {
       throw new Error(error.response.data)
     }
   }
-
+  public async getTokenizedCard (cardToken: string): Promise<any> {
+    try {
+      if (!cardToken) {
+        throw new Error('token Card is required')
+      }
+      const res = await axios.get(`${this.params.urlConsulta}/1/card/${cardToken}`)
+      
+      return res.data
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error
+      }
+      throw new Error(error.response.data)
+    }
+  }
+  
   /**
    *
    * @param SaleRequest
@@ -86,7 +105,7 @@ export default abstract class CieloServices {
    * @returns SaleResponse
    * @description POST /1/sales
    */
-  public async createSaleCardTokerized (data: SaleRequest): Promise<SaleResponse> {
+  public async createSaleCardTokenized (data: SaleRequest): Promise<SaleResponse> {
     try {
       const res = await axios.post(`${this.params.urlRequisicao}/1/sales`, data)
       return res.data

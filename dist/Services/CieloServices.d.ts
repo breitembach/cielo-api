@@ -21,6 +21,7 @@ export default abstract class CieloServices {
     * @description return Token Card
     */
     createTokenizedCard(card: Card): Promise<cardTokerized>;
+    getTokenizedCard(cardToken: string): Promise<any>;
     /**
      *
      * @param SaleRequest
@@ -28,7 +29,7 @@ export default abstract class CieloServices {
      * @returns SaleResponse
      * @description POST /1/sales
      */
-    postSales(data: SaleRequest): Promise<SaleResponse>;
+    createSaleCardTokenized(data: SaleRequest): Promise<SaleResponse>;
     /**
      * @param cardBin
      * @example GET /1/cardBin/${cardBin}

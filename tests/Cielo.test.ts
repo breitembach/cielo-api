@@ -44,6 +44,7 @@ describe('Card Tokerized', () => {
         ExpirationDate: "04/2021",
         Holder: "955"
       })
+      console.log(res);
       
       expect(res).toHaveProperty('CardToken')
     } catch (error) {
@@ -51,10 +52,24 @@ describe('Card Tokerized', () => {
       
     }
   })
+
+  test('Should Be Return credit Card > GET', async () => {
+    try {
+      expect.assertions(1)
+      const res = await CieloApi.getInstance.getTokenizedCard("48e3f755-668e-4985-aa98-161eedbf44b5")
+      
+      expect(res).toEqual({"CardNumber": "418466******0303", "ExpirationDate": "04/2021", "Holder": "955"})
+    } catch (error) {
+      console.log(error);
+      
+    }
+  })
+
+  
   test('Should Be Return created SALES With CardTokerized > POST', async () => {
     try {
       expect.assertions(1)
-      const res = await CieloApi.getInstance.createSaleCardTokerized({
+      const res = await CieloApi.getInstance.createSaleCardTokenized({
         Customer: {
           Name: "lucas"
         },

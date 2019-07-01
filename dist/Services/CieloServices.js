@@ -59,7 +59,25 @@ class CieloServices {
             if (!card) {
                 throw new Error('credit card is required');
             }
+            if (card.CardNumber.length !== 16) {
+                throw new Error('Número do cartão de credito deve ter 16 digitos');
+            }
             const res = await axios_1.default.post(`${this.params.urlRequisicao}/1/card`, card);
+            return res.data;
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                throw error;
+            }
+            throw new Error(error.response.data);
+        }
+    }
+    async getTokenizedCard(cardToken) {
+        try {
+            if (!cardToken) {
+                throw new Error('token Card is required');
+            }
+            const res = await axios_1.default.get(`${this.params.urlConsulta}/1/card/${cardToken}`);
             return res.data;
         }
         catch (error) {
@@ -76,7 +94,7 @@ class CieloServices {
      * @returns SaleResponse
      * @description POST /1/sales
      */
-    async postSales(data) {
+    async createSaleCardTokenized(data) {
         try {
             const res = await axios_1.default.post(`${this.params.urlRequisicao}/1/sales`, data);
             return res.data;

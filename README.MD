@@ -75,16 +75,17 @@ const ApiCielo = require('cielo-api').CieloApi
 # Ou importando com Typescript
 import { CieloApi } from 'cielo-api'
 
-new CieloApi.Cielo({
+const cielo = new CieloApi.Cielo({
     MerchantId: 'xxxxxxxxxxxxxxxxxxxxxxx',
     MerchantKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
     RequestId: 'xxxxxxx', // Opcional - Identificação do Servidor na Cielo
     isSandbox: true // Opcional - Ambiente de Testes
 }
+  cielo.<method>
 
-então você poderá chamar assim:
+ou então você poderá chamar assim:
 
-CieloApi.getInstance.<method>
+  CieloApi.getInstance.<method>
 
 ```
 
@@ -105,7 +106,7 @@ CieloApi.getInstance.<method>
 ```js
 
 try {
-  const res = await CieloApi.getInstance.createSaleCardTokerized({
+  const res = await CieloApi.getInstance.createSaleCardTokenized({
     Customer: {
       Name: "Nome do Cliente"
     },

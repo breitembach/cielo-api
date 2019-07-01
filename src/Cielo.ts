@@ -31,8 +31,3 @@ export namespace CieloApi {
   }
 }
 
-//asdadasdasdsd
-
-// let a: Cielo
-
-// console.log(new Cielo({merchantId: "dasdasdsd", merchantKey: "dasdsaad"}))

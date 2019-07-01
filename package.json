@@ -1,6 +1,6 @@
 {
   "name": "cielo-api",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Api cielo 3.0 nodejs com tipagem",
   "main": "./dist/Cielo.js",
   "types": "./dist/Cielo.d.ts",
