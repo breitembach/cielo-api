@@ -44,11 +44,25 @@ describe('Card Tokerized', () => {
         ExpirationDate: "04/2021",
         Holder: "955"
       })
-      console.log(res);
       
       expect(res).toHaveProperty('CardToken')
     } catch (error) {
       console.log(error);
+      
+    }
+  })
+
+  test('Should Be Return ERROR TokenizedCard With length != 16 > POST', async () => {
+    try {
+      const res = await CieloApi.getInstance.createTokenizedCard({
+        Brand: "Visa",
+        CardNumber: "41",
+        CustomerName: "Jesus Burns",
+        ExpirationDate: "04/2021",
+        Holder: "955"
+      })
+      expect(res).toThrowError('CardToken')
+    } catch (error) {
       
     }
   })
