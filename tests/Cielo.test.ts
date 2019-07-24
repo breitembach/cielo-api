@@ -1,7 +1,7 @@
 import credentials from '../credentials';
 import { CieloApi } from '../src/Cielo';
 
-new CieloApi.Cielo({
+const cielo = new CieloApi.Cielo({
   merchantId: credentials.merchantId, //@TODO
   merchantKey: credentials.merchantKey,//@TODO
   isSandBox: true
@@ -14,7 +14,6 @@ describe('CardBin', () => {
   
   test('Should Be Return CardBin data > GET', async () => {
     try {
-     
       expect.assertions(1)
       const res = await CieloApi.getInstance.getCardbin(418466)
       

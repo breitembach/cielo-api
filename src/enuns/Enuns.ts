@@ -6,9 +6,6 @@ export type TypeCountry = "BRA"
 
 export type TypeBrand = "Visa" | "Master" | "Amex" | "Elo" | "Aura" | "JCB" | "Diners" | "Discover" | "Hipercard"
 
-
 export type TypeCard = "Credito" | "Debito" | "Multiplo" 
-
-export type TypeCreditCard = "CreditCard"
 
 export type TypeCustomerStatus = "NEW" | "EXISTING"

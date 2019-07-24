@@ -1,4 +1,4 @@
-import { TypeBrand, TypeCountry, TypeCreditCard, TypeCurrency, TypeCustomerStatus } from "../enuns/Enuns";
+import { TypeBrand, TypeCountry, TypeCurrency, TypeCustomerStatus, TypeCard } from "../enuns/Enuns";
 
 export interface SaleRequest {
     MerchantOrderId: string
@@ -7,7 +7,7 @@ export interface SaleRequest {
       Status?: TypeCustomerStatus
     },  
     Payment: {  
-      Type: TypeCreditCard,
+      Type: string,
       Amount: number,
       Installments: number,
       CreditCard: {  
@@ -18,34 +18,36 @@ export interface SaleRequest {
 }
 
 export interface SaleResponse {
-    MerchantOrderId: string,
-    Customer: {
-      Name: string
-    },
-    Payment: {
-      ServiceTaxAmount: number,
-      Installments: number,
-      Interest: number,
-      Capture: boolean,
-      Authenticate: boolean,
-      Recurrent: boolean,
-      CreditCard: {
-        SaveCard: boolean,
-        CardToken: string,
-        Brand: TypeBrand
-      },
-      Tid: number,
-      ProofOfSale: number,
-      AuthorizationCode: number,
-      Provider: string, // @TODO ENUM
-      PaymentId: string,
-      Type: TypeCreditCard,
-      Amount: number,
-      ReceivedDate: Date
-      Currency: TypeCurrency,
-      Country: TypeCountry,
-      ReturnCode: number,
-      ReturnMessage: string
-      Status: number,
-    }
+  MerchantOrderId: string,
+  Customer: {
+    Name?: string
+  },
+  Payment: PaymentResponse
+}
+
+export interface PaymentResponse {
+  ServiceTaxAmount: number,
+  Installments: number,
+  Interest: number,
+  Capture: boolean,
+  Authenticate: boolean,
+  Recurrent: boolean,
+  CreditCard: {
+    SaveCard: boolean,
+    CardToken: string,
+    Brand: TypeBrand
+  },
+  Tid: number,
+  ProofOfSale: number,
+  AuthorizationCode: number,
+  Provider: string, // @TODO ENUM
+  PaymentId: string,
+  Type: string,
+  Amount: number,
+  ReceivedDate: Date
+  Currency: TypeCurrency,
+  Country: TypeCountry,
+  ReturnCode: number,
+  ReturnMessage: string
+  Status: number,
 }
