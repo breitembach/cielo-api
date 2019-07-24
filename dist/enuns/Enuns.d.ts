@@ -3,5 +3,4 @@ export declare type TypeCurrency = "BRL";
 export declare type TypeCountry = "BRA";
 export declare type TypeBrand = "Visa" | "Master" | "Amex" | "Elo" | "Aura" | "JCB" | "Diners" | "Discover" | "Hipercard";
 export declare type TypeCard = "Credito" | "Debito" | "Multiplo";
-export declare type TypeCreditCard = "CreditCard";
 export declare type TypeCustomerStatus = "NEW" | "EXISTING";
