@@ -3,6 +3,7 @@ import { Card, CardBinResponse, cardTokerized } from '../models/Card';
 import CieloConfig from '../models/CieloConfig';
 import { RecurrentPaymentResponse } from '../models/RecurrentPayment';
 import { SaleRequest, SaleResponse } from '../models/Sales';
+import CieloError from '../errors/CieloError';
 
 export default abstract class CieloServices {
   private params: CieloConfig;
@@ -64,13 +65,13 @@ export default abstract class CieloServices {
    * @description return Token Card
    */
   public async createTokenizedCard (card: Card): Promise<cardTokerized> {
+    if (!card) {
+      throw new Error('credit card is required')
+    }
+    if(card.CardNumber.length !== 16) {
+      throw new Error('Número do cartão de credito deve ter 16 digitos')
+    }
     try {
-      if (!card) {
-        throw new Error('credit card is required')
-      }
-      if(card.CardNumber.length !== 16) {
-        throw new Error('Número do cartão de credito deve ter 16 digitos')
-      }
       
       const res = await axios.post(`${this.params.urlRequisicao}/1/card`, card)
       
@@ -83,10 +84,10 @@ export default abstract class CieloServices {
     }
   }
   public async getTokenizedCard (cardToken: string): Promise<any> {
+    if (!cardToken) {
+      throw new Error('token Card is required')
+    }
     try {
-      if (!cardToken) {
-        throw new Error('token Card is required')
-      }
       const res = await axios.get(`${this.params.urlConsulta}/1/card/${cardToken}`)
       
       return res.data
@@ -94,7 +95,11 @@ export default abstract class CieloServices {
       if (error instanceof Error) {
         throw error
       }
-      throw new Error(error.response.data)
+      throw new CieloError({
+        errors: error.response.data, 
+        message: error.response.statusText, 
+        statusCode: error.response.status
+      })
     }
   }
   
@@ -109,9 +114,12 @@ export default abstract class CieloServices {
     try {
       const res = await axios.post(`${this.params.urlRequisicao}/1/sales`, data)
       return res.data
-
     } catch (error) {
-      throw new Error(error.response.data)
+      throw new CieloError({
+        errors: error.response.data, 
+        message: error.response.statusText, 
+        statusCode: error.response.status
+      })
     }
   }
 
@@ -121,18 +129,18 @@ export default abstract class CieloServices {
    * @description 6 first number of card
    */
   public async getCardbin (cardBin: number): Promise<CardBinResponse> {
+    if (!cardBin) {
+      throw new Error('cardBin is required')
+    }
     try {
-      if (!cardBin) {
-        throw new Error('cardBin is required')
-      }
       const res = await axios.get(`${this.params.urlConsulta}/1/cardBin/${cardBin}`)
-
       return res.data
     } catch (error) {
-      if (error instanceof Error) {
-        throw error
-      }
-      throw new Error(error.response.data)
+      throw new CieloError({
+        errors: error.response.data, 
+        message: error.response.statusText, 
+        statusCode: error.response.status
+      })
     }
   }
 
@@ -150,13 +158,17 @@ export default abstract class CieloServices {
   // }
 
   public async recurrenceConsulting (recurrentPaymentId: string): Promise<RecurrentPaymentResponse> { // @TODO
+    if (!recurrentPaymentId) {
+      throw new Error('recurrentPaymentId is required')
+    }
     try {
-      if (!recurrentPaymentId) {
-        throw new Error('recurrentPaymentId is required')
-      }
       return await axios.get(`${this.params.urlConsulta}/1/RecurrentPayment/${recurrentPaymentId}`)
     } catch (error) {
-      throw error
+      throw new CieloError({
+        errors: error.response.data, 
+        message: error.response.statusText, 
+        statusCode: error.response.status
+      })
     }
   }
 }

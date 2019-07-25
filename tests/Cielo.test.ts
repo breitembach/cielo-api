@@ -80,6 +80,13 @@ describe('Card Tokerized', () => {
 
   
   test('Should Be Return created SALES With CardTokerized > POST', async () => {
+
+    // { cardToken: 'c162f4e6-b585-4e73-b4fc-1dc184e80419',
+    //      number: '1329',
+    //      dateValid: '07/2021',
+    //      brand: 'Visa',
+    //      fullName: 'Renaldo Schmidt',
+    //      type: 'Credito' } }
     try {
       expect.assertions(1)
       const res = await CieloApi.getInstance.createSaleCardTokenized({
