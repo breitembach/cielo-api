@@ -66,10 +66,10 @@ export default abstract class CieloServices {
    */
   public async createTokenizedCard (card: Card): Promise<cardTokerized> {
     if (!card) {
-      throw new Error('credit card is required')
+      throw new CieloError({message: 'credit card is required'})
     }
     if(card.CardNumber.length !== 16) {
-      throw new Error('Número do cartão de credito deve ter 16 digitos')
+      throw new CieloError({message: 'Número do cartão de credito deve ter 16 digitos'})
     }
     try {
       
@@ -85,16 +85,13 @@ export default abstract class CieloServices {
   }
   public async getTokenizedCard (cardToken: string): Promise<any> {
     if (!cardToken) {
-      throw new Error('token Card is required')
+      throw new CieloError({message: 'token Card is required'})
     }
     try {
       const res = await axios.get(`${this.params.urlConsulta}/1/card/${cardToken}`)
       
       return res.data
     } catch (error) {
-      if (error instanceof Error) {
-        throw error
-      }
       throw new CieloError({
         errors: error.response.data, 
         message: error.response.statusText, 
@@ -130,7 +127,7 @@ export default abstract class CieloServices {
    */
   public async getCardbin (cardBin: number): Promise<CardBinResponse> {
     if (!cardBin) {
-      throw new Error('cardBin is required')
+      throw new CieloError({message: 'cardBin is required'})
     }
     try {
       const res = await axios.get(`${this.params.urlConsulta}/1/cardBin/${cardBin}`)
@@ -159,7 +156,7 @@ export default abstract class CieloServices {
 
   public async recurrenceConsulting (recurrentPaymentId: string): Promise<RecurrentPaymentResponse> { // @TODO
     if (!recurrentPaymentId) {
-      throw new Error('recurrentPaymentId is required')
+      throw new CieloError({message: 'recurrentPaymentId is required'})
     }
     try {
       return await axios.get(`${this.params.urlConsulta}/1/RecurrentPayment/${recurrentPaymentId}`)

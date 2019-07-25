@@ -12,6 +12,7 @@ API 3.0 da Cielo em NodeJs com suporte Typescript
 + [Instalação](#instalacao)
 + [Como Utilizar](#howuse)
 + [Paramêtros de criação](#params)
++ [Handle Erros](#handleErros)
 
 #### [Cartão de Crédito](#creditCard)
 + [Criando uma transação simples](#creditSimpleTransaction) @TODO
@@ -67,8 +68,6 @@ npm install --save cielo-api
 
 ### Iniciando
 
-``
-
 ```js
 const ApiCielo = require('cielo-api').CieloApi
 
@@ -88,6 +87,22 @@ ou então você poderá chamar assim:
   CieloApi.getInstance.<method>
 
 ```
+## <a name="handleErros"></a> Lidando com Erros
+### Receber erros 
+```js
+try {
+  throw CieloError({message: 'todas as propriedades aqui é opcional :)'})
+} catch (error) {
+  if(error instanceof CieloError) {
+    error.message
+    error.statusCode
+    error.erros[0].Code
+    error.erros[0].Message
+    
+  }
+}
+```
+
 
 ### <a name="params"></a> Paramêtros de criação
 

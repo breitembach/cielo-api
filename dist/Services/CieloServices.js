@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
+const CieloError_1 = __importDefault(require("../errors/CieloError"));
 class CieloServices {
     constructor(initialConfig) {
         this.params = initialConfig;
@@ -55,13 +56,13 @@ class CieloServices {
     * @description return Token Card
     */
     async createTokenizedCard(card) {
+        if (!card) {
+            throw new CieloError_1.default({ message: 'credit card is required' });
+        }
+        if (card.CardNumber.length !== 16) {
+            throw new CieloError_1.default({ message: 'Número do cartão de credito deve ter 16 digitos' });
+        }
         try {
-            if (!card) {
-                throw new Error('credit card is required');
-            }
-            if (card.CardNumber.length !== 16) {
-                throw new Error('Número do cartão de credito deve ter 16 digitos');
-            }
             const res = await axios_1.default.post(`${this.params.urlRequisicao}/1/card`, card);
             return res.data;
         }
@@ -73,18 +74,19 @@ class CieloServices {
         }
     }
     async getTokenizedCard(cardToken) {
+        if (!cardToken) {
+            throw new CieloError_1.default({ message: 'token Card is required' });
+        }
         try {
-            if (!cardToken) {
-                throw new Error('token Card is required');
-            }
             const res = await axios_1.default.get(`${this.params.urlConsulta}/1/card/${cardToken}`);
             return res.data;
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
-            throw new Error(error.response.data);
+            throw new CieloError_1.default({
+                errors: error.response.data,
+                message: error.response.statusText,
+                statusCode: error.response.status
+            });
         }
     }
     /**
@@ -100,7 +102,11 @@ class CieloServices {
             return res.data;
         }
         catch (error) {
-            throw new Error(error.response.data);
+            throw new CieloError_1.default({
+                errors: error.response.data,
+                message: error.response.statusText,
+                statusCode: error.response.status
+            });
         }
     }
     /**
@@ -109,18 +115,19 @@ class CieloServices {
      * @description 6 first number of card
      */
     async getCardbin(cardBin) {
+        if (!cardBin) {
+            throw new CieloError_1.default({ message: 'cardBin is required' });
+        }
         try {
-            if (!cardBin) {
-                throw new Error('cardBin is required');
-            }
             const res = await axios_1.default.get(`${this.params.urlConsulta}/1/cardBin/${cardBin}`);
             return res.data;
         }
         catch (error) {
-            if (error instanceof Error) {
-                throw error;
-            }
-            throw new Error(error.response.data);
+            throw new CieloError_1.default({
+                errors: error.response.data,
+                message: error.response.statusText,
+                statusCode: error.response.status
+            });
         }
     }
     // public modifyingRecurrenceHandler = {
@@ -136,14 +143,18 @@ class CieloServices {
     //   }
     // }
     async recurrenceConsulting(recurrentPaymentId) {
+        if (!recurrentPaymentId) {
+            throw new CieloError_1.default({ message: 'recurrentPaymentId is required' });
+        }
         try {
-            if (!recurrentPaymentId) {
-                throw new Error('recurrentPaymentId is required');
-            }
             return await axios_1.default.get(`${this.params.urlConsulta}/1/RecurrentPayment/${recurrentPaymentId}`);
         }
         catch (error) {
-            throw error;
+            throw new CieloError_1.default({
+                errors: error.response.data,
+                message: error.response.statusText,
+                statusCode: error.response.status
+            });
         }
     }
 }

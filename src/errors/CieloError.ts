@@ -1,6 +1,6 @@
 interface err {
   Code: number,
-  Message: string
+  Message: string,
 }
 export default class CieloError extends Error {
   public errors: err[]
