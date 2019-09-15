@@ -72,9 +72,8 @@ export default abstract class CieloServices {
       throw new CieloError({message: 'Número do cartão de credito deve ter 16 digitos'})
     }
     try {
-      
-      const res = await axios.post(`${this.params.urlRequisicao}/1/card`, card)
-      
+
+      const res = await axios.post<cardTokerized>(`${this.params.urlRequisicao}/1/card`, card)
       return res.data
     } catch (error) {
       if (error instanceof Error) {
@@ -89,17 +88,16 @@ export default abstract class CieloServices {
     }
     try {
       const res = await axios.get(`${this.params.urlConsulta}/1/card/${cardToken}`)
-      
       return res.data
     } catch (error) {
       throw new CieloError({
-        errors: error.response.data, 
-        message: error.response.statusText, 
+        errors: error.response.data,
+        message: error.response.statusText,
         statusCode: error.response.status
       })
     }
   }
-  
+
   /**
    *
    * @param SaleRequest
@@ -113,8 +111,8 @@ export default abstract class CieloServices {
       return res.data
     } catch (error) {
       throw new CieloError({
-        errors: error.response.data, 
-        message: error.response.statusText, 
+        errors: error.response.data,
+        message: error.response.statusText,
         statusCode: error.response.status
       })
     }
@@ -134,8 +132,8 @@ export default abstract class CieloServices {
       return res.data
     } catch (error) {
       throw new CieloError({
-        errors: error.response.data, 
-        message: error.response.statusText, 
+        errors: error.response.data,
+        message: error.response.statusText,
         statusCode: error.response.status
       })
     }
@@ -162,8 +160,8 @@ export default abstract class CieloServices {
       return await axios.get(`${this.params.urlConsulta}/1/RecurrentPayment/${recurrentPaymentId}`)
     } catch (error) {
       throw new CieloError({
-        errors: error.response.data, 
-        message: error.response.statusText, 
+        errors: error.response.data,
+        message: error.response.statusText,
         statusCode: error.response.status
       })
     }
